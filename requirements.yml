@@ -3,6 +3,9 @@ channels:
 - conda-forge
 - pytorch
 dependencies:
+  - seaborn
+  - pandas
+  - ggplot
   - numpy
   - torchvision
   - matplotlib
