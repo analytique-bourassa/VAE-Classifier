@@ -5,6 +5,7 @@ from torch.autograd import Variable
 def train_classifier(classifier, optimizer,train_loader):
 
     total_loss_value = 0.0
+    number_of_observations =  len(train_loader.dataset)
 
     for i, (images, labels) in enumerate(train_loader):
 
@@ -21,11 +22,14 @@ def train_classifier(classifier, optimizer,train_loader):
 
         total_loss_value += loss.item()
 
-    return total_loss_value
+    normalized_loss = total_loss_value / number_of_observations
+
+    return normalized_loss
 
 def evaluate_classifier(classifier, test_loader):
 
     total_loss_value = 0.0
+    number_of_observations = len(test_loader.dataset)
 
     for i, (images, labels) in enumerate(test_loader):
 
@@ -39,7 +43,9 @@ def evaluate_classifier(classifier, test_loader):
 
         total_loss_value += loss.item()
 
-    return total_loss_value
+    normalized_loss = total_loss_value/number_of_observations
+
+    return normalized_loss
 
 def return_model_accurary(classifier, test_loader):
 
@@ -53,3 +59,4 @@ def return_model_accurary(classifier, test_loader):
         correct += (predicted == labels).sum()
 
     return 100 * correct / total
+

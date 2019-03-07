@@ -4,19 +4,17 @@ from VariationalAutoEncoder.utils import evaluate_vae, train_vae
 from VariationalAutoEncoder.VariationalAutoEncoder import VAE
 
 import torch
-import torch.nn as nn
 import pyro
 import pyro.distributions as dist
 from pyro.infer import SVI, Trace_ELBO
 from pyro.optim import Adam
-from torch.autograd import Variable
+
 from tqdm import tqdm
 from tools.training_monitoring import LossesMonitor
 from classifier.ParametersLogisticRegressionVAE import ParameterLogisticRegressionVAE
 from classifier.LogisticRegression_VAE import LogisticRegression
 from tools.Visualisations import compare_images
-import torchvision.datasets as dsets
-import torchvision.transforms as transforms
+
 from classifier.utils import train_classifier, evaluate_classifier
 from classifier.utils import return_model_accurary
 from tools.Visualisations import t_SNE
@@ -45,11 +43,10 @@ pyro.clear_param_store()
 
 # setup the VAE
 vae = VAE(use_cuda=USE_CUDA)
-# setup the optimizer
+
+
 adam_args = {"lr": LEARNING_RATE}
 optimizer = Adam(adam_args)
-
-# setup the inference algorithm
 svi = SVI(vae.model, vae.guide, optimizer, loss=Trace_ELBO())
 
 loss_monitor_vae = LossesMonitor()
@@ -89,12 +86,10 @@ for epoch in tqdm(range(parameters_LR_VAE.num_epochs)):
     if epoch % TEST_FREQUENCY == 0:
         loss_test = evaluate_classifier(classifier, test_loader)
         loss_monitor_classifier.append_values(epoch, loss_train, set="test")
-        print("[epoch %03d]  average training loss: %.4f" % (epoch, loss_test))
+        print("[epoch %03d]  average testing loss: %.4f" % (epoch, loss_test))
 
 if not smoke_test:
     loss_monitor_classifier.show_losses()
-
-
 
 accuracy = return_model_accurary(classifier, test_loader)
 print('Accuracy of the model on the 10000 test images: %d %%' % accuracy)

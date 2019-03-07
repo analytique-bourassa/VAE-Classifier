@@ -59,9 +59,6 @@ def t_SNE(test_loader, variational_autoencoder):
     labels = list()
 
     examples = enumerate(test_loader)
-   # batch_idx, (example_data, example_targets) = next(examples)
-
-   # for idx in range(example_data.shape[0]):
 
     for batch_idx, (example_data, example_targets) in examples:
         for idx in range(example_data.shape[0]):

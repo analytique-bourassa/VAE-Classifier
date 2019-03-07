@@ -6,8 +6,7 @@ class ParameterLogisticRegressionVAE(object):
 
         self._input_size = 784
         self._num_classes = 10
-        self._num_epochs = 100
-        self._batch_size = 100
+        self._num_epochs = 150
         self._learning_rate = 0.001
 
     @property
@@ -46,18 +45,6 @@ class ParameterLogisticRegressionVAE(object):
         assert value > 1, "must be greater than 1"
 
         self._num_epochs = value
-
-    @property
-    def batch_size(self):
-        return self._batch_size
-
-    @batch_size.setter
-    def batch_size(self, value):
-        assert isinstance(value, numbers.Real)
-        assert isinstance(value, int), "must be an integer"
-        assert value > 1, "must be greater than 1"
-
-        self._batch_size = value
 
     @property
     def learning_rate(self):

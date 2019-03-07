@@ -7,7 +7,7 @@ import torch
 
 class VAE(nn.Module):
 
-    def __init__(self, z_dim=40, hidden_dim=400, use_cuda=False):
+    def __init__(self, z_dim=30, hidden_dim=400, use_cuda=False):
         super(VAE, self).__init__()
 
         self.encoder = Encoder(z_dim, hidden_dim)
