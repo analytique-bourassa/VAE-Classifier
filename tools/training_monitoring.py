@@ -25,15 +25,17 @@ class LossesMonitor(object):
         else:
             raise ValueError("the set must be train or test")
 
-    def show_losses(self):
+    def show_losses(self, type_loss="loss"):
 
         assert len(self.train_epochs) > 0, "must have some values"
         assert len(self.test_epochs) > 0, "must have some values"
         assert len(self.train_elbo) > 0, "must have some values"
         assert len(self.test_elbo) > 0, "must have some values"
 
-        plt.title("Evidence lower bound")
+        plt.title(type_loss)
         plt.plot(self.test_epochs, self.test_elbo, ".-", label="test")
         plt.plot(self.train_epochs, self.train_elbo, ".-", label="train")
+        plt.xlabel("epochs")
+        plt.ylabel(type_loss)
         plt.legend()
         plt.show()

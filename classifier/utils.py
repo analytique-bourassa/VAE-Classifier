@@ -5,7 +5,7 @@ from torch.autograd import Variable
 def train_classifier(classifier, optimizer,train_loader):
 
     total_loss_value = 0.0
-    number_of_observations =  len(train_loader.dataset)
+    number_of_observations = len(train_loader.dataset)
 
     for i, (images, labels) in enumerate(train_loader):
 

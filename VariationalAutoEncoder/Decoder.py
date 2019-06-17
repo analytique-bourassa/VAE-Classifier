@@ -12,10 +12,8 @@ class Decoder(nn.Module):
         self.sigmoid = nn.Sigmoid()
 
     def forward(self, z):
-        # define the forward computation on the latent z
-        # first compute the hidden units
+
         hidden = self.softplus(self.fc1(z))
-        # return the parameter for the output Bernoulli
-        # each is of size batch_size x 784
         loc_img = self.sigmoid(self.fc21(hidden))
+
         return loc_img
